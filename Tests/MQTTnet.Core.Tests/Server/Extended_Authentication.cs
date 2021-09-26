@@ -152,18 +152,26 @@ namespace MQTTnet.Tests.Server
 
         class DemoExtendedAuthenticationHandler : IMqttExtendedAuthenticationHandler
         {
-            // TODO: Use "StartReAuthentication()";
-            
-            public Task StartExtendedAuthentication(MqttExtendedAuthenticationRequest initialRequest)
+            public Task StartExtendedAuthentication()
             {
                 return Task.CompletedTask;
             }
-
+            
             public Task EndExtendedAuthentication()
             {
                 return Task.CompletedTask;
             }
 
+            public Task StartReAuthentication(MqttExtendedAuthenticationRequest initialRequest)
+            {
+                return Task.CompletedTask;
+            }
+            
+            public Task EndReAuthentication()
+            {
+                return Task.CompletedTask;
+            }
+            
             public Task HandleExtendedAuthenticationAsync(MqttExtendedAuthenticationContext context)
             {
                 if (Encoding.UTF8.GetString(context.Request.AuthenticationData) == "A")

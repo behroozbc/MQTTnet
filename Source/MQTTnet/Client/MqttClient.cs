@@ -175,16 +175,17 @@ namespace MQTTnet.Client
 
             ThrowIfDisposed();
             ThrowIfNotConnected();
-
-            if (_packetDispatcher.AuthPacketHandler != null)
+            
+            var extendedAuthenticationHandler = Options.ExtendedAuthenticationHandler;
+            if (extendedAuthenticationHandler == null)
             {
-                throw new InvalidOperationException("A re-authentication is already running.");
+                throw new InvalidOperationException("Re-Authentication requires an extended authentication handler specified in the options.");
             }
-
+            
             try
             {
                 var result = new TaskCompletionSource<MqttExtendedAuthenticationRequest>();
-
+                
                 using (cancellationToken.Register(() => result.TrySetCanceled()))
                 {
                     // Prepare the initial packet for authentication flow.
@@ -199,11 +200,10 @@ namespace MQTTnet.Client
                         }
                     };
 
-                    await Options.ExtendedAuthenticationHandler.StartExtendedAuthentication(new MqttExtendedAuthenticationRequest(initialAuthPacket));
+                    await extendedAuthenticationHandler.StartReAuthentication(new MqttExtendedAuthenticationRequest(initialAuthPacket));
 
                     // Setup handling of incoming AUTH packets.
-                    // TODO: Create method to ensure atomic flip with lock!
-                    _packetDispatcher.AuthPacketHandler = async authPacket =>
+                    _packetDispatcher.SetAuthPacketListener(async authPacket =>
                     {
                         if (authPacket.ReasonCode == MqttAuthenticateReasonCode.Success)
                         {
@@ -212,7 +212,7 @@ namespace MQTTnet.Client
                         }
 
                         var context = new MqttExtendedAuthenticationContext(authPacket);
-                        await Options.ExtendedAuthenticationHandler.HandleExtendedAuthenticationAsync(context).ConfigureAwait(false);
+                        await extendedAuthenticationHandler.HandleExtendedAuthenticationAsync(context).ConfigureAwait(false);
 
                         if (context.Response != null)
                         {
@@ -228,7 +228,7 @@ namespace MQTTnet.Client
                                 },
                                 cancellationToken);
                         }
-                    };
+                    });
 
                     // Initiate the authentication flow.
                     await SendPacketAsync(initialAuthPacket, cancellationToken).ConfigureAwait(false);
@@ -238,9 +238,9 @@ namespace MQTTnet.Client
             }
             finally
             {
-                _packetDispatcher.AuthPacketHandler = null;
+                _packetDispatcher.RemoveAuthPacketListener();
 
-                await Options.ExtendedAuthenticationHandler.EndExtendedAuthentication();
+                await extendedAuthenticationHandler.EndReAuthentication();
             }
         }
 
@@ -367,7 +367,7 @@ namespace MQTTnet.Client
 
                 if (extendedAuthenticationHandler != null)
                 {
-                    await extendedAuthenticationHandler.StartExtendedAuthentication(null).ConfigureAwait(false);
+                    await extendedAuthenticationHandler.StartExtendedAuthentication().ConfigureAwait(false);
                 }
 
                 // Loop until the server sends the CONNACK packet. The server may sent AUTH packets

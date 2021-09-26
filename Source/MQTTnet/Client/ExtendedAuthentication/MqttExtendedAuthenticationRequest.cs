@@ -14,8 +14,9 @@ namespace MQTTnet.Client.ExtendedAuthentication
             _authPacket = authPacket ?? throw new ArgumentNullException(nameof(authPacket));
         }
 
-        public List<MqttUserProperty> UserProperties => _authPacket.Properties.UserProperties;
-
+        /// <summary>
+        /// Gets the authentication data.
+        /// </summary>
         public byte[] AuthenticationData => _authPacket.Properties.AuthenticationData;
 
         /// <summary>
@@ -24,6 +25,14 @@ namespace MQTTnet.Client.ExtendedAuthentication
         /// </summary>
         public string ReasonString => _authPacket.Properties.ReasonString;
 
+        /// <summary>
+        /// Gets a value indicating whether the authentication is finished (succeeded) or if more data is required.
+        /// </summary>
         public bool ContinueAuthentication => _authPacket.ReasonCode == MqttAuthenticateReasonCode.ContinueAuthentication;
+        
+        /// <summary>
+        /// Gets the user properties.
+        /// </summary>
+        public List<MqttUserProperty> UserProperties => _authPacket.Properties.UserProperties;
     }
 }

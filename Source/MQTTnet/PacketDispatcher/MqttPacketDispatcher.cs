@@ -7,9 +7,25 @@ namespace MQTTnet.PacketDispatcher
 {
     public sealed class MqttPacketDispatcher
     {
-        readonly List<IMqttPacketAwaitable> _awaitables = new List<IMqttPacketAwaitable>();
+        readonly List<IMqttPacketAwaitable> _awaitables = new List<IMqttPacketAwaitable>(1024);
 
-        public Func<MqttAuthPacket, Task> AuthPacketHandler;
+        readonly object _authPacketHandlerSyncRoot = new object();
+        Func<MqttAuthPacket, Task> _authPacketHandler;
+
+        public void SetAuthPacketListener(Func<MqttAuthPacket, Task> authPacketHandler)
+        {
+            if (authPacketHandler == null) throw new ArgumentNullException(nameof(authPacketHandler));
+            
+            lock (_authPacketHandlerSyncRoot)
+            {
+                if (_authPacketHandler != null)
+                {
+                    throw new InvalidOperationException("An AUTH packet listener is already active.");
+                }
+
+                _authPacketHandler = authPacketHandler;
+            }
+        }
         
         public void FailAll(Exception exception)
         {
@@ -45,9 +61,9 @@ namespace MQTTnet.PacketDispatcher
 
             if (packet is MqttAuthPacket authPacket)
             {
-                if (AuthPacketHandler != null)
+                if (_authPacketHandler != null)
                 {
-                    AuthPacketHandler.Invoke(authPacket);
+                    _authPacketHandler.Invoke(authPacket);
                     return true;
                 }
             }
@@ -108,6 +124,11 @@ namespace MQTTnet.PacketDispatcher
             {
                 _awaitables.Remove(awaitable);
             }
+        }
+
+        public void RemoveAuthPacketListener()
+        {
+            _authPacketHandler = null;
         }
     }
 }

@@ -4,9 +4,13 @@ namespace MQTTnet.Client.ExtendedAuthentication
 {
     public interface IMqttExtendedAuthenticationHandler
     {
-        Task StartExtendedAuthentication(MqttExtendedAuthenticationRequest initialRequest);
+        Task StartExtendedAuthentication();
 
         Task EndExtendedAuthentication();
+
+        Task StartReAuthentication(MqttExtendedAuthenticationRequest initialRequest);
+        
+        Task EndReAuthentication();
         
         Task HandleExtendedAuthenticationAsync(MqttExtendedAuthenticationContext context);
     }
