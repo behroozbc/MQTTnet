@@ -202,7 +202,7 @@ namespace MQTTnet.Client
             return client.ConnectAsync(options, CancellationToken.None);
         }
 
-        public static Task SendExtendedAuthenticationExchangeDataAsync(this IMqttClient client, MqttReAuthenticationParameters data)
+        public static Task SendExtendedAuthenticationExchangeDataAsync(this IMqttClient client, MqttExtendedAuthenticationData data)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 

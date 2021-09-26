@@ -83,9 +83,9 @@ namespace MQTTnet.Tests.Mockups
             return Implementation.PublishAsync(applicationMessage, cancellationToken);
         }
 
-        public Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttReAuthenticationParameters parameters, CancellationToken cancellationToken)
+        public Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttExtendedAuthenticationData data, CancellationToken cancellationToken)
         {
-            return Implementation.ReAuthenticate(parameters, cancellationToken);
+            return Implementation.ReAuthenticate(data, cancellationToken);
         }
 
         public Task<MqttClientSubscribeResult> SubscribeAsync(MqttClientSubscribeOptions options, CancellationToken cancellationToken)

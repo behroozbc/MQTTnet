@@ -3,7 +3,7 @@ using MQTTnet.Packets;
 
 namespace MQTTnet.Client.ExtendedAuthentication
 {
-    public sealed class MqttReAuthenticationParameters
+    public sealed class MqttExtendedAuthenticationData
     {
         /// <summary>
         /// Gets or sets the authentication data.

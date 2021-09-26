@@ -176,7 +176,7 @@ namespace MQTTnet.Tests.Server
             {
                 if (Encoding.UTF8.GetString(context.Request.AuthenticationData) == "A")
                 {
-                    context.Response = new MqttExtendedAuthenticationResponse
+                    context.Response = new MqttExtendedAuthenticationData
                     {
                         AuthenticationData = Encoding.UTF8.GetBytes("1")
                     };
@@ -184,7 +184,7 @@ namespace MQTTnet.Tests.Server
 
                 if (Encoding.UTF8.GetString(context.Request.AuthenticationData) == "B")
                 {
-                    context.Response = new MqttExtendedAuthenticationResponse
+                    context.Response = new MqttExtendedAuthenticationData
                     {
                         AuthenticationData = Encoding.UTF8.GetBytes("2")
                     };
@@ -192,7 +192,7 @@ namespace MQTTnet.Tests.Server
 
                 if (Encoding.UTF8.GetString(context.Request.AuthenticationData) == "C")
                 {
-                    context.Response = new MqttExtendedAuthenticationResponse
+                    context.Response = new MqttExtendedAuthenticationData
                     {
                         AuthenticationData = Encoding.UTF8.GetBytes("3")
                     };

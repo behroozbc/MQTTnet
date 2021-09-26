@@ -41,10 +41,10 @@ namespace MQTTnet.Client
         /// Sends extended authentication data.
         /// Hint: MQTT 5 feature only.
         /// </summary>
-        /// <param name="parameters">The parameters for the extended authentication.</param>
+        /// <param name="data">The parameters for the extended authentication.</param>
         /// <param name="cancellationToken">A cancellation token to stop the task.</param>
         /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
-        Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttReAuthenticationParameters parameters, CancellationToken cancellationToken);
+        Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttExtendedAuthenticationData data, CancellationToken cancellationToken);
 
         Task<MqttClientSubscribeResult> SubscribeAsync(MqttClientSubscribeOptions options, CancellationToken cancellationToken);
 

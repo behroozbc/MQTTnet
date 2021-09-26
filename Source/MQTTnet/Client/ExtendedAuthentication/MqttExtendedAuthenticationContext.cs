@@ -18,7 +18,7 @@ namespace MQTTnet.Client.ExtendedAuthentication
 
         public MqttExtendedAuthenticationRequest Request { get; }
 
-        public MqttExtendedAuthenticationResponse Response { get; set; }
+        public MqttExtendedAuthenticationData Response { get; set; }
 
     }
 }

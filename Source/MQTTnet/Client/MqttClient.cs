@@ -169,9 +169,9 @@ namespace MQTTnet.Client
             return SendAndReceiveAsync<MqttPingRespPacket>(MqttPingReqPacket.Instance, cancellationToken);
         }
         
-        public async Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttReAuthenticationParameters parameters, CancellationToken cancellationToken)
+        public async Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttExtendedAuthenticationData data, CancellationToken cancellationToken)
         {
-            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
             ThrowIfDisposed();
             ThrowIfNotConnected();
@@ -195,8 +195,8 @@ namespace MQTTnet.Client
                         Properties = new MqttAuthPacketProperties
                         {
                             AuthenticationMethod = Options.AuthenticationMethod,
-                            AuthenticationData = parameters.AuthenticationData,
-                            UserProperties = parameters.UserProperties
+                            AuthenticationData = data.AuthenticationData,
+                            UserProperties = data.UserProperties
                         }
                     };
 
