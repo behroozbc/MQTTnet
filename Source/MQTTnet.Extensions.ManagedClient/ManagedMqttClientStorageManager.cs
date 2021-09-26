@@ -8,10 +8,10 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class ManagedMqttClientStorageManager
     {
-        private readonly List<ManagedMqttApplicationMessage> _messages = new List<ManagedMqttApplicationMessage>();
-        private readonly AsyncLock _messagesLock = new AsyncLock();
+        readonly List<ManagedMqttApplicationMessage> _messages = new List<ManagedMqttApplicationMessage>();
+        readonly AsyncLock _messagesLock = new AsyncLock();
 
-        private readonly IManagedMqttClientStorage _storage;
+        readonly IManagedMqttClientStorage _storage;
 
         public ManagedMqttClientStorageManager(IManagedMqttClientStorage storage)
         {
@@ -54,7 +54,7 @@ namespace MQTTnet.Extensions.ManagedClient
             }
         }
 
-        private Task SaveAsync()
+        Task SaveAsync()
         {
             return _storage.SaveQueuedMessagesAsync(_messages);
         }

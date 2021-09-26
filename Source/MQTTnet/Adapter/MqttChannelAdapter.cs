@@ -1,5 +1,4 @@
 using MQTTnet.Channel;
-using MQTTnet.Diagnostics;
 using MQTTnet.Exceptions;
 using MQTTnet.Formatter;
 using MQTTnet.Internal;

@@ -19,6 +19,8 @@ namespace MQTTnet.Server
         {
             _connectPacket = connectPacket ?? throw new ArgumentNullException(nameof(connectPacket));
             _clientAdapter = clientAdapter ?? throw new ArgumentNullException(nameof(clientAdapter));
+
+            ExtendedAuthenticationHandler = new MqttExtendedAuthenticationHandler(this, clientAdapter);
         }
 
         /// <summary>
@@ -169,13 +171,23 @@ namespace MQTTnet.Server
         /// </summary>
         public string AssignedClientIdentifier { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason string.
+        /// MQTTv5 only.
+        /// </summary>
         public string ReasonString { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the server reference. This can be used together with i.e. "Server Moved" to send
         /// a different server address to the client.
         /// MQTTv5 only.
         /// </summary>
         public string ServerReference { get; set; }
+
+        /// <summary>
+        /// Gets the extended authentication handler.
+        /// MQTTv5 only.
+        /// </summary>
+        public MqttExtendedAuthenticationHandler ExtendedAuthenticationHandler { get; }
     }
 }

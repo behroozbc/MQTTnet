@@ -72,14 +72,14 @@ namespace MQTTnet.Tests.Mockups
         {
         }
 
-        private void EnqueuePacketInternal(MqttBasePacket packet)
+        void EnqueuePacketInternal(MqttBasePacket packet)
         {
             if (packet == null) throw new ArgumentNullException(nameof(packet));
 
             _incomingPackets.Add(packet);
         }
 
-        private void ThrowIfPartnerIsNull()
+        void ThrowIfPartnerIsNull()
         {
             if (Partner == null)
             {

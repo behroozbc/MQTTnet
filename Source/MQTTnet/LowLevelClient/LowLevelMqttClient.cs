@@ -1,6 +1,5 @@
 ﻿using MQTTnet.Adapter;
 using MQTTnet.Client.Options;
-using MQTTnet.Diagnostics;
 using MQTTnet.Packets;
 using System;
 using System.Threading;

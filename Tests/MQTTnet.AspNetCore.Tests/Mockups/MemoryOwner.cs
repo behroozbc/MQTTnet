@@ -5,7 +5,7 @@ namespace MQTTnet.AspNetCore.Tests.Mockups
 {
     public class MemoryOwner : IMemoryOwner<byte>
     {
-        private readonly byte[] _raw;
+        readonly byte[] _raw;
 
         public MemoryOwner(int size)
         {

@@ -2,8 +2,8 @@
 {
     public enum MqttAuthenticateReasonCode
     {
-        Success = 0,
-        ContinueAuthentication = 24,
-        ReAuthenticate = 25
+        Success = 0x00,
+        ContinueAuthentication = 0x18,
+        ReAuthenticate = 0x19
     }
 }

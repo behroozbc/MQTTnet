@@ -2,7 +2,7 @@
 
 namespace MQTTnet.Client.Connecting
 {
-    public class MqttClientConnectedEventArgs : EventArgs
+    public sealed class MqttClientConnectedEventArgs : EventArgs
     {
         public MqttClientConnectedEventArgs(MqttClientConnectResult connectResult)
         {
@@ -10,7 +10,7 @@ namespace MQTTnet.Client.Connecting
         }
 
         /// <summary>
-        /// Gets the authentication result.
+        /// Gets the connect result.
         /// Hint: MQTT 5 feature only.
         /// </summary>
         public MqttClientConnectResult ConnectResult { get; }

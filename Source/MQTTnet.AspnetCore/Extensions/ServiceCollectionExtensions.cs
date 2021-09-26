@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MQTTnet.Adapter;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Implementations;
 using MQTTnet.Server;
@@ -60,7 +59,7 @@ namespace MQTTnet.AspNetCore.Extensions
             return services;
         }
 
-        private static IServiceCollection AddHostedMqttServer(this IServiceCollection services)
+        static IServiceCollection AddHostedMqttServer(this IServiceCollection services)
         {
             var logger = new MqttNetEventLogger();
 

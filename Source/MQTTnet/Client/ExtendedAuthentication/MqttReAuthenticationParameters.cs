@@ -1,23 +1,10 @@
 ﻿using System.Collections.Generic;
 using MQTTnet.Packets;
-using MQTTnet.Protocol;
 
-namespace MQTTnet.Client.ExtendedAuthenticationExchange
+namespace MQTTnet.Client.ExtendedAuthentication
 {
-    public class MqttExtendedAuthenticationExchangeData
+    public sealed class MqttReAuthenticationParameters
     {
-        /// <summary>
-        /// Gets or sets the reason code.
-        /// Hint: MQTT 5 feature only.
-        /// </summary>
-        public MqttAuthenticateReasonCode ReasonCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reason string.
-        /// Hint: MQTT 5 feature only.
-        /// </summary>
-        public string ReasonString { get; set; }
-
         /// <summary>
         /// Gets or sets the authentication data.
         /// Authentication data is binary information used to transmit multiple iterations of cryptographic secrets of protocol steps.
@@ -33,6 +20,6 @@ namespace MQTTnet.Client.ExtendedAuthenticationExchange
         /// The feature is very similar to the HTTP header concept.
         /// Hint: MQTT 5 feature only.
         /// </summary>
-        public List<MqttUserProperty> UserProperties { get; }
+        public List<MqttUserProperty> UserProperties { get; } = new List<MqttUserProperty>();
     }
 }

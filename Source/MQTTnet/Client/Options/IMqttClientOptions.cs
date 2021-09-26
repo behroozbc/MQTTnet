@@ -1,8 +1,8 @@
-﻿using MQTTnet.Client.ExtendedAuthenticationExchange;
-using MQTTnet.Formatter;
+﻿using MQTTnet.Formatter;
 using MQTTnet.Packets;
 using System;
 using System.Collections.Generic;
+using MQTTnet.Client.ExtendedAuthentication;
 using MQTTnet.Diagnostics.PacketInspection;
 
 namespace MQTTnet.Client.Options
@@ -27,7 +27,7 @@ namespace MQTTnet.Client.Options
 
         IMqttClientCredentials Credentials { get; }
 
-        IMqttExtendedAuthenticationExchangeHandler ExtendedAuthenticationExchangeHandler { get; }
+        IMqttExtendedAuthenticationHandler ExtendedAuthenticationHandler { get; }
 
         MqttProtocolVersion ProtocolVersion { get; }
 

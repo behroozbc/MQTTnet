@@ -106,7 +106,7 @@ namespace MQTTnet.Tests.Server
             CompareAndAssert("/finance", "+", false);
         }
 
-        private static void CompareAndAssert(string topic, string filter, bool expectedResult)
+        static void CompareAndAssert(string topic, string filter, bool expectedResult)
         {
             Assert.AreEqual(expectedResult, MqttTopicFilterComparer.IsMatch(topic, filter));
         }

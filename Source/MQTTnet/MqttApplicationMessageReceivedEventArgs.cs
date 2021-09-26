@@ -44,6 +44,11 @@ namespace MQTTnet
         public bool IsHandled { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether the message is already acknowledged.
+        /// </summary>
+        public bool IsAcknowledged => _isAcknowledged > 0;
+        
+        /// <summary>
         /// Gets ir sets whether the library should send MQTT ACK packets automatically if required.
         /// </summary>
         public bool AutoAcknowledge { get; set; } = true;

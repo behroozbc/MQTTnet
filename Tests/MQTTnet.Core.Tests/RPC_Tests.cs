@@ -79,7 +79,7 @@ namespace MQTTnet.Tests
             {
                 await testEnvironment.StartServer();
 
-                var requestSender = await testEnvironment.ConnectClient();
+                await testEnvironment.ConnectClient();
 
                 var rpcClient = await testEnvironment.ConnectRpcClient(new MqttRpcClientOptionsBuilder().WithTopicGenerationStrategy(new TestTopicStrategy()) .Build());
                 

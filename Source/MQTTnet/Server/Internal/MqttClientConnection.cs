@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MQTTnet.Adapter;
 using MQTTnet.Client;
 using MQTTnet.Client.Disconnecting;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Exceptions;
 using MQTTnet.Formatter;
@@ -154,7 +153,10 @@ namespace MQTTnet.Server.Internal
 
         Task SendPacketAsync(MqttBasePacket packet, CancellationToken cancellationToken)
         {
-            return _channelAdapter.SendPacketAsync(packet, cancellationToken).ContinueWith(task => { Statistics.HandleSentPacket(packet); }, cancellationToken);
+            return _channelAdapter.SendPacketAsync(packet, cancellationToken).ContinueWith(task =>
+            {
+                Statistics.HandleSentPacket(packet);
+            }, cancellationToken);
         }
 
         async Task ReceivePackagesLoop(CancellationToken cancellationToken)

@@ -6,9 +6,9 @@ namespace MQTTnet.AspNetCore.Client.Tcp
 {
     public class SocketReceiver
     {
-        private readonly Socket _socket;
-        private readonly SocketAsyncEventArgs _eventArgs = new SocketAsyncEventArgs();
-        private readonly SocketAwaitable _awaitable;
+        readonly Socket _socket;
+        readonly SocketAsyncEventArgs _eventArgs = new SocketAsyncEventArgs();
+        readonly SocketAwaitable _awaitable;
 
         public SocketReceiver(Socket socket, PipeScheduler scheduler)
         {

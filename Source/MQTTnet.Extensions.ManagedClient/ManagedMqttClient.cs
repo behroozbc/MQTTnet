@@ -3,7 +3,6 @@ using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
 using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Receiving;
-using MQTTnet.Diagnostics;
 using MQTTnet.Exceptions;
 using MQTTnet.Internal;
 using MQTTnet.Protocol;

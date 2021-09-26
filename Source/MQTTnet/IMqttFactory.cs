@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using MQTTnet.Client;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Server;
 

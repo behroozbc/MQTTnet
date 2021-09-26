@@ -5,7 +5,7 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class SynchronizingSubscriptionsFailedHandlerDelegate : ISynchronizingSubscriptionsFailedHandler
     {
-        private readonly Func<ManagedProcessFailedEventArgs, Task> _handler;
+        readonly Func<ManagedProcessFailedEventArgs, Task> _handler;
 
         public SynchronizingSubscriptionsFailedHandlerDelegate(Action<ManagedProcessFailedEventArgs> handler)
         {

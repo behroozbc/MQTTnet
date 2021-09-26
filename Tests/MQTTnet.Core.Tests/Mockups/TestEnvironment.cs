@@ -213,6 +213,9 @@ namespace MQTTnet.Tests.Mockups
             
             await server.StartAsync(optionsBuilder.Build());
 
+            // Wait for the server to be fully up and running.
+            await Task.Delay(500);
+            
             return server;
         }
         

@@ -22,10 +22,8 @@ using MQTTnet.Tests.Mockups;
 namespace MQTTnet.Tests.Client
 {
     [TestClass]
-    public class Client_Tests
+    public sealed class Client_Tests : BaseTestClass
     {
-        public TestContext TestContext { get; set; }
-
         [TestMethod]
         public async Task Ensure_Queue_Drain()
         {
@@ -35,10 +33,7 @@ namespace MQTTnet.Tests.Client
                 var client = await testEnvironment.ConnectLowLevelClient();
 
                 var i = 0;
-                server.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(c =>
-                {
-                    i++;
-                });
+                server.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(c => { i++; });
 
                 await client.SendAsync(new MqttConnectPacket
                 {
@@ -49,19 +44,19 @@ namespace MQTTnet.Tests.Client
                 {
                     Topic = "Test"
                 }, CancellationToken.None);
-                
+
                 await Task.Delay(500);
-                
+
                 // This will simulate a device which closes the connection directly
                 // after sending the data so do delay is added between send and dispose!
                 client.Dispose();
-                
+
                 await Task.Delay(1000);
 
                 Assert.AreEqual(1, i);
             }
         }
-        
+
         [TestMethod]
         public async Task Set_ClientWasConnected_On_ServerDisconnect()
         {
@@ -83,7 +78,7 @@ namespace MQTTnet.Tests.Client
         {
             using (var testEnvironment = new TestEnvironment(TestContext))
             {
-                var server = await testEnvironment.StartServer();
+                await testEnvironment.StartServer();
                 var client = await testEnvironment.ConnectClient();
 
                 Assert.IsTrue(client.IsConnected);
@@ -367,10 +362,7 @@ namespace MQTTnet.Tests.Client
                 bool disconnectHandlerCalled = false;
                 try
                 {
-                    client.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(args =>
-                    {
-                        disconnectHandlerCalled = true;
-                    });
+                    client.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(args => { disconnectHandlerCalled = true; });
 
                     await client.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("1.2.3.4").Build());
 
@@ -414,10 +406,7 @@ namespace MQTTnet.Tests.Client
             using (var client = factory.CreateMqttClient())
             {
                 Exception ex = null;
-                client.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(e =>
-                {
-                    ex = e.Exception;
-                });
+                client.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(e => { ex = e.Exception; });
 
                 try
                 {
@@ -616,10 +605,7 @@ namespace MQTTnet.Tests.Client
                 const string expectedClient2Message = "hello client2";
 
                 var client1 = await testEnvironment.ConnectClient();
-                client1.UseApplicationMessageReceivedHandler(async c =>
-                {
-                    await client1.PublishAsync(client2Topic, expectedClient2Message, MqttQualityOfServiceLevel.AtLeastOnce);
-                });
+                client1.UseApplicationMessageReceivedHandler(async c => { await client1.PublishAsync(client2Topic, expectedClient2Message, MqttQualityOfServiceLevel.AtLeastOnce); });
 
                 await client1.SubscribeAsync(client1Topic, MqttQualityOfServiceLevel.AtLeastOnce);
 
@@ -627,10 +613,7 @@ namespace MQTTnet.Tests.Client
 
                 var client2TopicResults = new List<string>();
 
-                client2.UseApplicationMessageReceivedHandler(c =>
-                {
-                    client2TopicResults.Add(Encoding.UTF8.GetString(c.ApplicationMessage.Payload));
-                });
+                client2.UseApplicationMessageReceivedHandler(c => { client2TopicResults.Add(Encoding.UTF8.GetString(c.ApplicationMessage.Payload)); });
 
                 await client2.SubscribeAsync(client2Topic);
 
@@ -788,10 +771,7 @@ namespace MQTTnet.Tests.Client
 
                 var receiveClient = clients[99];
                 object receivedPayload = null;
-                receiveClient.UseApplicationMessageReceivedHandler(e =>
-                {
-                    receivedPayload = e.ApplicationMessage.ConvertPayloadToString();
-                });
+                receiveClient.UseApplicationMessageReceivedHandler(e => { receivedPayload = e.ApplicationMessage.ConvertPayloadToString(); });
 
                 await receiveClient.SubscribeAsync("x");
 
@@ -845,23 +825,17 @@ namespace MQTTnet.Tests.Client
                 var client2 = await testEnvironment.ConnectClient(o => o.WithProtocolVersion(MqttProtocolVersion.V500));
 
                 var disconnectedFired = false;
-                client1.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(c =>
-                {
-                    disconnectedFired = true;
-                });
+                client1.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(c => { disconnectedFired = true; });
 
                 var messageReceived = false;
-                client1.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(c =>
-                {
-                    messageReceived = true;
-                });
+                client1.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(c => { messageReceived = true; });
 
                 await client1.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("topic1").WithExactlyOnceQoS().Build());
 
                 await Task.Delay(500);
 
                 var message = new MqttApplicationMessageBuilder().WithTopic("topic1").WithPayload("Hello World").WithExactlyOnceQoS().WithRetainFlag().Build();
-                
+
                 await client2.PublishAsync(message);
                 await Task.Delay(500);
 

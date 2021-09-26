@@ -10,13 +10,13 @@ namespace MQTTnet.AspNetCore.Client.Tcp
 {
     public class SocketAwaitable : ICriticalNotifyCompletion
     {
-        private static readonly Action _callbackCompleted = () => { };
+        static readonly Action _callbackCompleted = () => { };
 
-        private readonly PipeScheduler _ioScheduler;
+        readonly PipeScheduler _ioScheduler;
 
-        private Action _callback;
-        private int _bytesTransferred;
-        private SocketError _error;
+        Action _callback;
+        int _bytesTransferred;
+        SocketError _error;
 
         public SocketAwaitable(PipeScheduler ioScheduler)
         {

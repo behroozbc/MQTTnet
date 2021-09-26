@@ -39,7 +39,7 @@ namespace MQTTnet.Benchmarks
             _host.StartAsync().GetAwaiter().GetResult();
 
             var clientOptions = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost").Build();
+                .WithTcpServer("127.0.0.1").Build();
 
             _mqttClient.ConnectAsync(clientOptions).GetAwaiter().GetResult();
 

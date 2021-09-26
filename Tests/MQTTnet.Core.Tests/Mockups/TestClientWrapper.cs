@@ -2,7 +2,6 @@
 using MQTTnet.Client;
 using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
-using MQTTnet.Client.ExtendedAuthenticationExchange;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Receiving;
@@ -10,6 +9,7 @@ using MQTTnet.Client.Subscribing;
 using MQTTnet.Client.Unsubscribing;
 using System.Threading;
 using System.Threading.Tasks;
+using MQTTnet.Client.ExtendedAuthentication;
 
 namespace MQTTnet.Tests.Mockups
 {
@@ -83,9 +83,9 @@ namespace MQTTnet.Tests.Mockups
             return Implementation.PublishAsync(applicationMessage, cancellationToken);
         }
 
-        public Task SendExtendedAuthenticationExchangeDataAsync(MqttExtendedAuthenticationExchangeData data, CancellationToken cancellationToken)
+        public Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttReAuthenticationParameters parameters, CancellationToken cancellationToken)
         {
-            return Implementation.SendExtendedAuthenticationExchangeDataAsync(data, cancellationToken);
+            return Implementation.ReAuthenticate(parameters, cancellationToken);
         }
 
         public Task<MqttClientSubscribeResult> SubscribeAsync(MqttClientSubscribeOptions options, CancellationToken cancellationToken)

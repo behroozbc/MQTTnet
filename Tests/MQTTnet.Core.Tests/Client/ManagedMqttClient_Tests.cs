@@ -8,7 +8,6 @@ using MQTTnet.Client;
 using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Server;
@@ -32,7 +31,7 @@ namespace MQTTnet.Tests.Client
                     .WithMaxPendingMessages(5)
                     .WithPendingMessagesOverflowStrategy(MqttPendingMessagesOverflowStrategy.DropNewMessage);
 
-                clientOptions.WithClientOptions(o => o.WithTcpServer("localhost"));
+                clientOptions.WithClientOptions(o => o.WithTcpServer("127.0.0.1"));
 
                 await managedClient.StartAsync(clientOptions.Build());
 
@@ -65,7 +64,7 @@ namespace MQTTnet.Tests.Client
 
                 var willMessage = new MqttApplicationMessageBuilder().WithTopic("My/last/will").WithAtMostOnceQoS().Build();
                 var clientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", testEnvironment.ServerPort)
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort)
                     .WithWillMessage(willMessage);
                 var dyingClient = testEnvironment.CreateClient();
                 var dyingManagedClient = new ManagedMqttClient(dyingClient, testEnvironment.ClientLogger);
@@ -95,7 +94,7 @@ namespace MQTTnet.Tests.Client
 
                 var managedClient = new ManagedMqttClient(testEnvironment.CreateClient(), new MqttNetEventLogger());
                 var clientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", testEnvironment.ServerPort);
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort);
 
                 var connected = GetConnectedTask(managedClient);
 
@@ -125,7 +124,7 @@ namespace MQTTnet.Tests.Client
 
                 var managedClient = new ManagedMqttClient(testEnvironment.CreateClient(), new MqttNetEventLogger());
                 var clientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", testEnvironment.ServerPort);
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort);
                 var storage = new ManagedMqttClientTestStorage();
 
                 var connected = GetConnectedTask(managedClient);
@@ -133,7 +132,7 @@ namespace MQTTnet.Tests.Client
                 await managedClient.StartAsync(new ManagedMqttClientOptionsBuilder()
                     .WithClientOptions(clientOptions)
                     .WithStorage(storage)
-                    .WithAutoReconnectDelay(System.TimeSpan.FromSeconds(5))
+                    .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
                     .Build());
 
                 await connected;
@@ -394,20 +393,20 @@ namespace MQTTnet.Tests.Client
             }
         }
 
-        private async Task<IMqttClient> TryConnect_Subscribe(TestEnvironment testEnvironment, MqttClientOptionsBuilder options, Action onReceive)
+        async Task<IMqttClient> TryConnect_Subscribe(TestEnvironment testEnvironment, MqttClientOptionsBuilder options, Action onReceive)
         {
 
             try
             {
                 var sendClient = await testEnvironment.ConnectClient(options);
-                sendClient.ApplicationMessageReceivedHandler = new MQTTnet.Client.Receiving.MqttApplicationMessageReceivedHandlerDelegate(e =>
+                sendClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(e =>
                 {
                     onReceive();
                 });
                 await sendClient.SubscribeAsync("aaa");
                 return sendClient;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -421,7 +420,7 @@ namespace MQTTnet.Tests.Client
             await testEnvironment.StartServer();
 
             var clientOptions = new MqttClientOptionsBuilder()
-              .WithTcpServer("localhost", testEnvironment.ServerPort);
+              .WithTcpServer("127.0.0.1", testEnvironment.ServerPort);
 
             var managedOptions = new ManagedMqttClientOptionsBuilder()
               .WithClientOptions(clientOptions)

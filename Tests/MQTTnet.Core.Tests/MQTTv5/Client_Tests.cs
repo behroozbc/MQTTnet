@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MQTTnet.Client;
@@ -10,7 +9,6 @@ using MQTTnet.Client.Subscribing;
 using MQTTnet.Client.Unsubscribing;
 using MQTTnet.Formatter;
 using MQTTnet.Protocol;
-using MQTTnet.Server;
 using MQTTnet.Tests.Mockups;
 
 namespace MQTTnet.Tests.MQTTv5

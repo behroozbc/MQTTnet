@@ -69,7 +69,7 @@ namespace MQTTnet.TestApp.NetCore
 
         public class ClientRetainedMessageHandler : IManagedMqttClientStorage
         {
-            private const string Filename = @"RetainedMessages.json";
+            const string Filename = @"RetainedMessages.json";
 
             public Task SaveQueuedMessagesAsync(IList<ManagedMqttApplicationMessage> messages)
             {

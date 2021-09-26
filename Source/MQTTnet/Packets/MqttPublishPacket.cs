@@ -16,12 +16,11 @@ namespace MQTTnet.Packets
 
         public byte[] Payload { get; set; }
 
-        #region Added in MQTTv5
-
+        /// <summary>
+        /// Added in MQTTv5.
+        /// </summary>
         public MqttPublishPacketProperties Properties { get; set; }
-
-        #endregion
-
+        
         public override string ToString()
         {
             return string.Concat("Publish: [Topic=", Topic, "] [Payload.Length=", Payload?.Length, "] [QoSLevel=", QualityOfServiceLevel, "] [Dup=", Dup, "] [Retain=", Retain, "] [PacketIdentifier=", PacketIdentifier, "]");

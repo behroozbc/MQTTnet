@@ -13,11 +13,11 @@ namespace MQTTnet.AspNetCore.Client.Tcp
 {
     public class SocketSender
     {
-        private readonly Socket _socket;
-        private readonly SocketAsyncEventArgs _eventArgs = new SocketAsyncEventArgs();
-        private readonly SocketAwaitable _awaitable;
+        readonly Socket _socket;
+        readonly SocketAsyncEventArgs _eventArgs = new SocketAsyncEventArgs();
+        readonly SocketAwaitable _awaitable;
 
-        private List<ArraySegment<byte>> _bufferList;
+        List<ArraySegment<byte>> _bufferList;
 
         public SocketSender(Socket socket, PipeScheduler scheduler)
         {
@@ -53,7 +53,7 @@ namespace MQTTnet.AspNetCore.Client.Tcp
             return _awaitable;
         }
 
-        private SocketAwaitable SendAsync(ReadOnlyMemory<byte> memory)
+        SocketAwaitable SendAsync(ReadOnlyMemory<byte> memory)
         {
             // The BufferList getter is much less expensive then the setter.
             if (_eventArgs.BufferList != null)
@@ -75,7 +75,7 @@ namespace MQTTnet.AspNetCore.Client.Tcp
             return _awaitable;
         }
 
-        private List<ArraySegment<byte>> GetBufferList(in ReadOnlySequence<byte> buffer)
+        List<ArraySegment<byte>> GetBufferList(in ReadOnlySequence<byte> buffer)
         {
             Debug.Assert(!buffer.IsEmpty);
             Debug.Assert(!buffer.IsSingleSegment);

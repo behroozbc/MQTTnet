@@ -37,7 +37,7 @@ namespace MQTTnet.Benchmarks
             _mqttServer.StartAsync(serverOptions).GetAwaiter().GetResult();
 
             var clientOptions = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost").Build();
+                .WithTcpServer("127.0.0.1").Build();
 
             var tcpOptions = (MqttClientTcpOptions)clientOptions.ChannelOptions;
             _clientChannel = new MqttTcpChannel(new MqttClientOptions { ChannelOptions = tcpOptions });

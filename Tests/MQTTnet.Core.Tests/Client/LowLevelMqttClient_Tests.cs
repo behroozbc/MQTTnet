@@ -25,7 +25,7 @@ namespace MQTTnet.Tests.Client
         {
             var client = new MqttFactory().CreateLowLevelMqttClient();
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost")
+                .WithTcpServer("127.0.0.1")
                 .Build();
 
             await client.ConnectAsync(options, CancellationToken.None).ConfigureAwait(false);
@@ -41,7 +41,8 @@ namespace MQTTnet.Tests.Client
                 var factory = new MqttFactory();
                 var lowLevelClient = factory.CreateLowLevelMqttClient();
 
-                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
+                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder()
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
 
                 await lowLevelClient.DisconnectAsync(CancellationToken.None);
             }
@@ -57,7 +58,8 @@ namespace MQTTnet.Tests.Client
                 var factory = new MqttFactory();
                 var lowLevelClient = factory.CreateLowLevelMqttClient();
 
-                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
+                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder()
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
 
                 var receivedPacket = await Authenticate(lowLevelClient).ConfigureAwait(false);
 
@@ -78,7 +80,8 @@ namespace MQTTnet.Tests.Client
                 var factory = new MqttFactory();
                 var lowLevelClient = factory.CreateLowLevelMqttClient();
 
-                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
+                await lowLevelClient.ConnectAsync(new MqttClientOptionsBuilder()
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort).Build(), CancellationToken.None);
 
                 await Authenticate(lowLevelClient).ConfigureAwait(false);
 

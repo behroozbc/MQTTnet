@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using MQTTnet.Client.Options;
 
 namespace MQTTnet.Extensions

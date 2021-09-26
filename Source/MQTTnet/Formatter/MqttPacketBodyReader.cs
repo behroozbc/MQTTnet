@@ -117,7 +117,7 @@ namespace MQTTnet.Formatter
             return ReadSegmentWithLengthPrefix().ToArray();
         }
 
-        private ArraySegment<byte> ReadSegmentWithLengthPrefix()
+        ArraySegment<byte> ReadSegmentWithLengthPrefix()
         {
             var length = ReadTwoByteInteger();
 
@@ -130,7 +130,7 @@ namespace MQTTnet.Formatter
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ValidateReceiveBuffer(int length)
+        void ValidateReceiveBuffer(int length)
         {
             if (_length < _offset + length)
             {

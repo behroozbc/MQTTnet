@@ -5,7 +5,7 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class ConnectingFailedHandlerDelegate : IConnectingFailedHandler
     {
-        private readonly Func<ManagedProcessFailedEventArgs, Task> _handler;
+        readonly Func<ManagedProcessFailedEventArgs, Task> _handler;
 
         public ConnectingFailedHandlerDelegate(Action<ManagedProcessFailedEventArgs> handler)
         {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
-using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MQTTnet.Adapter;
@@ -14,7 +14,6 @@ using MQTTnet.Client.Options;
 using MQTTnet.Exceptions;
 using MQTTnet.Formatter;
 using MQTTnet.Packets;
-using System.Net;
 using MQTTnet.AspNetCore.Extensions;
 using MQTTnet.Protocol;
 using MQTTnet.Tests.Extensions;
@@ -92,7 +91,7 @@ namespace MQTTnet.AspNetCore.Tests
             Assert.IsTrue(readResult.Buffer.Length > 20000);
         }
 
-        private class Startup 
+        class Startup 
         {
             public void Configure(IApplicationBuilder app)
             { 
@@ -118,7 +117,7 @@ namespace MQTTnet.AspNetCore.Tests
             {
                 host.Start();
                 await client.ConnectAsync(new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
+                    .WithTcpServer("127.0.0.1")
                     .Build(), CancellationToken.None);
 
                 var ctx = await mockup.Context.Task;

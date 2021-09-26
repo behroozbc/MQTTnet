@@ -4,8 +4,8 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class ManagedMqttApplicationMessageBuilder
     {
-        private Guid _id = Guid.NewGuid();
-        private MqttApplicationMessage _applicationMessage;
+        Guid _id = Guid.NewGuid();
+        MqttApplicationMessage _applicationMessage;
 
         public ManagedMqttApplicationMessageBuilder WithId(Guid id)
         {

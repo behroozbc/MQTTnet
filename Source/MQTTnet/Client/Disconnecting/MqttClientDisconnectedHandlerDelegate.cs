@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace MQTTnet.Client.Disconnecting
 {
-    public class MqttClientDisconnectedHandlerDelegate : IMqttClientDisconnectedHandler
+    public sealed class MqttClientDisconnectedHandlerDelegate : IMqttClientDisconnectedHandler
     {
-        private readonly Func<MqttClientDisconnectedEventArgs, Task> _handler;
+        readonly Func<MqttClientDisconnectedEventArgs, Task> _handler;
 
         public MqttClientDisconnectedHandlerDelegate(Action<MqttClientDisconnectedEventArgs> handler)
         {

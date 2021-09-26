@@ -37,7 +37,7 @@ namespace MQTTnet.Tests.Server
                 var client = testEnvironment.CreateClient();
 
                 var clientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", testEnvironment.ServerPort)
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort)
                     .WithCredentials(username, password)
                     .Build();
 
@@ -58,7 +58,7 @@ namespace MQTTnet.Tests.Server
                 var client = testEnvironment.CreateClient();
 
                 var clientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", testEnvironment.ServerPort)
+                    .WithTcpServer("127.0.0.1", testEnvironment.ServerPort)
                     .WithClientId(string.Empty)
                     .Build();
 
@@ -113,7 +113,7 @@ namespace MQTTnet.Tests.Server
                 await testEnvironment.StartServer();
 
                 var client = testEnvironment.CreateClient();
-                var connectResult = await client.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("localhost", testEnvironment.ServerPort).WithCleanSession().Build());
+                var connectResult = await client.ConnectAsync(new MqttClientOptionsBuilder().WithTcpServer("127.0.0.1", testEnvironment.ServerPort).WithCleanSession().Build());
 
                 Assert.IsFalse(connectResult.IsSessionPresent);
             }
@@ -166,10 +166,10 @@ namespace MQTTnet.Tests.Server
                     .WithWillMessage(willMessage)
                     .WithClientId("WillOwner");
 
-                var c2 = await testEnvironment.ConnectClient(clientOptions);
+                await testEnvironment.ConnectClient(clientOptions);
 
                 // C3 will do the connection takeover.
-                var c3 = await testEnvironment.ConnectClient(clientOptions);
+                await testEnvironment.ConnectClient(clientOptions);
 
                 await Task.Delay(1000);
 
@@ -884,7 +884,7 @@ namespace MQTTnet.Tests.Server
 
         Dictionary<string, bool> _connected;
 
-        private void ConnectionValidationHandler(MqttConnectionValidatorContext eventArgs)
+        void ConnectionValidationHandler(MqttConnectionValidatorContext eventArgs)
         {
             if (_connected.ContainsKey(eventArgs.ClientId))
             {

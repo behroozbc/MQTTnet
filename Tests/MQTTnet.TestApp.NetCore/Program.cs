@@ -1,5 +1,4 @@
 ﻿using MQTTnet.Client.Options;
-using MQTTnet.Diagnostics;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 using System;
@@ -119,7 +118,7 @@ namespace MQTTnet.TestApp.NetCore
             mqttClient.UseConnectedHandler(async e =>               // version 3.0.0+
             {
                 Console.WriteLine("### CONNECTED WITH SERVER ###");
-                await mqttClient.SubscribeAsync("topic/+", MQTTnet.Protocol.MqttQualityOfServiceLevel.AtLeastOnce);
+                await mqttClient.SubscribeAsync("topic/+", Protocol.MqttQualityOfServiceLevel.AtLeastOnce);
                 Console.WriteLine("### SUBSCRIBED ###");
             });
 
@@ -172,19 +171,19 @@ namespace MQTTnet.TestApp.NetCore
         public void Code()
         {
             //Validate certificate.
-            var options = new MqttClientOptionsBuilder()
+            new MqttClientOptionsBuilder()
                 .WithTls(new MqttClientOptionsBuilderTlsParameters
                 {
                     CertificateValidationHandler = context =>
+                    {
+                        // TODO: Check conditions of certificate by using above context.
+                        if (context.SslPolicyErrors == SslPolicyErrors.None)
                         {
-                            // TODO: Check conditions of certificate by using above context.
-                            if (context.SslPolicyErrors == SslPolicyErrors.None)
-                            {
-                                return true;
-                            }
-
-                            return false;
+                            return true;
                         }
+
+                        return false;
+                    }
                 })
                 .Build();
         }

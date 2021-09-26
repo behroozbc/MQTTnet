@@ -21,7 +21,7 @@ namespace MQTTnet.TestApp.NetCore
             var serverOptions = new MqttServerOptionsBuilder().Build();
             await server.StartAsync(serverOptions);
 
-            var clientOptions = new MqttClientOptionsBuilder().WithTcpServer("localhost").Build();
+            var clientOptions = new MqttClientOptionsBuilder().WithTcpServer("127.0.0.1").Build();
             await client.ConnectAsync(clientOptions);
 
             await Task.Delay(Timeout.Infinite);

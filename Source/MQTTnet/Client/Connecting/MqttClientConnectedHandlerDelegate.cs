@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace MQTTnet.Client.Connecting
 {
-    public class MqttClientConnectedHandlerDelegate : IMqttClientConnectedHandler
+    public sealed class MqttClientConnectedHandlerDelegate : IMqttClientConnectedHandler
     {
-        private readonly Func<MqttClientConnectedEventArgs, Task> _handler;
+        readonly Func<MqttClientConnectedEventArgs, Task> _handler;
 
         public MqttClientConnectedHandlerDelegate(Action<MqttClientConnectedEventArgs> handler)
         {

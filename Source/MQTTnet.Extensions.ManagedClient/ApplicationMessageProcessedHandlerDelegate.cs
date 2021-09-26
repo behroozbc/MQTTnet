@@ -5,7 +5,7 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class ApplicationMessageProcessedHandlerDelegate : IApplicationMessageProcessedHandler
     {
-        private readonly Func<ApplicationMessageProcessedEventArgs, Task> _handler;
+        readonly Func<ApplicationMessageProcessedEventArgs, Task> _handler;
 
         public ApplicationMessageProcessedHandlerDelegate(Action<ApplicationMessageProcessedEventArgs> handler)
         {

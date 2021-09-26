@@ -1,6 +1,5 @@
 ﻿#if !WINDOWS_UWP
 using MQTTnet.Adapter;
-using MQTTnet.Diagnostics;
 using MQTTnet.Server;
 using System;
 using System.Collections.Generic;

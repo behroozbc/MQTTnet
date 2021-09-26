@@ -5,7 +5,7 @@ namespace MQTTnet.Extensions.ManagedClient
 {
     public class ApplicationMessageSkippedHandlerDelegate : IApplicationMessageSkippedHandler
     {
-        private readonly Func<ApplicationMessageSkippedEventArgs, Task> _handler;
+        readonly Func<ApplicationMessageSkippedEventArgs, Task> _handler;
 
         public ApplicationMessageSkippedHandlerDelegate(Action<ApplicationMessageSkippedEventArgs> handler)
         {

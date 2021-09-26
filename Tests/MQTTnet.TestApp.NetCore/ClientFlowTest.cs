@@ -20,7 +20,7 @@ namespace MQTTnet.TestApp.NetCore
                 var client = factory.CreateMqttClient();
                 
                 var options = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
+                    .WithTcpServer("127.0.0.1")
                     .Build();
                 
                 Console.WriteLine("BEFORE CONNECT");

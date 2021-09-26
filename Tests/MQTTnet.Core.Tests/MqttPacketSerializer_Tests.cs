@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MQTTnet.Adapter;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Exceptions;
 using MQTTnet.Formatter;
@@ -194,7 +193,7 @@ namespace MQTTnet.Tests
         [TestMethod]
         public void Serialize_LargePacket()
         {
-            var serializer = new MqttV311PacketFormatter(WriterFactory());
+            new MqttV311PacketFormatter(WriterFactory());
 
             const int payloadLength = 80000;
 

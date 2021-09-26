@@ -1,12 +1,12 @@
 ﻿using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
-using MQTTnet.Client.ExtendedAuthenticationExchange;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Subscribing;
 using MQTTnet.Client.Unsubscribing;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MQTTnet.Client.ExtendedAuthentication;
 
 namespace MQTTnet.Client
 {
@@ -14,6 +14,9 @@ namespace MQTTnet.Client
     {
         bool IsConnected { get; }
 
+        /// <summary>
+        /// Gets the options which are used when connecting with the server.
+        /// </summary>
         IMqttClientOptions Options { get; }
 
         /// <summary>
@@ -38,10 +41,10 @@ namespace MQTTnet.Client
         /// Sends extended authentication data.
         /// Hint: MQTT 5 feature only.
         /// </summary>
-        /// <param name="data">The extended data.</param>
+        /// <param name="parameters">The parameters for the extended authentication.</param>
         /// <param name="cancellationToken">A cancellation token to stop the task.</param>
         /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
-        Task SendExtendedAuthenticationExchangeDataAsync(MqttExtendedAuthenticationExchangeData data, CancellationToken cancellationToken);
+        Task<MqttExtendedAuthenticationRequest> ReAuthenticate(MqttReAuthenticationParameters parameters, CancellationToken cancellationToken);
 
         Task<MqttClientSubscribeResult> SubscribeAsync(MqttClientSubscribeOptions options, CancellationToken cancellationToken);
 

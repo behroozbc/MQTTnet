@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MQTTnet.Adapter;
 using MQTTnet.Client.Disconnecting;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Exceptions;
 using MQTTnet.Formatter;
@@ -62,7 +61,6 @@ namespace MQTTnet.Server.Internal
                 using (var effectiveCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(timeoutToken.Token, cancellationToken))
                 {
                     var firstPacket = await channelAdapter.ReceivePacketAsync(effectiveCancellationToken.Token).ConfigureAwait(false);
-
                     if (firstPacket is MqttConnectPacket connectPacket)
                     {
                         return connectPacket;
@@ -426,9 +424,9 @@ namespace MQTTnet.Server.Internal
             };
 
             var connectionValidator = _options.ConnectionValidator;
-
             if (connectionValidator == null)
             {
+                // Accept all connections if no connection validator is configured.
                 context.ReasonCode = MqttConnectReasonCode.Success;
                 return context;
             }

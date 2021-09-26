@@ -1,5 +1,3 @@
-﻿using System.Runtime.CompilerServices;
-
-#if DEBUG
+﻿#if DEBUG
 [assembly:InternalsVisibleTo("MQTTnet.Core.Tests")]
 #endif

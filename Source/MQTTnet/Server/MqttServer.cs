@@ -1,7 +1,6 @@
 ﻿using MQTTnet.Adapter;
 using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Receiving;
-using MQTTnet.Diagnostics;
 using MQTTnet.Exceptions;
 using MQTTnet.Protocol;
 using MQTTnet.Server.Status;

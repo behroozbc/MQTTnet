@@ -1,7 +1,5 @@
 using MQTTnet.Client;
 using System;
-using System.IO;
-using System.Net;
 using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
@@ -129,7 +127,7 @@ namespace MQTTnet.TestApp.NetCore
             Console.ReadLine();
         }
 
-        private static async Task ExecuteTestAsync(string name, IMqttClientOptions options)
+        static async Task ExecuteTestAsync(string name, IMqttClientOptions options)
         {
             try
             {
@@ -164,7 +162,7 @@ namespace MQTTnet.TestApp.NetCore
             }
         }
 
-        private static void Write(string message, ConsoleColor color)
+        static void Write(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(message);

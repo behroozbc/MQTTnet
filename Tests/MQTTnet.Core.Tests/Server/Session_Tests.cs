@@ -77,7 +77,7 @@ namespace MQTTnet.Tests.Server
 
                 await testEnvironment.StartServer(serverOptions);
 
-                var client = await testEnvironment.ConnectClient();
+                await testEnvironment.ConnectClient();
 
                 var sessionStatus = await testEnvironment.Server.GetSessionStatusAsync();
                 var session = sessionStatus.First();

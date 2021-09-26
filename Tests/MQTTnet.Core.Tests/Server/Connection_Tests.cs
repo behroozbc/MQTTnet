@@ -20,7 +20,7 @@ namespace MQTTnet.Tests.Server
                 await testEnvironment.StartServer(new MqttServerOptionsBuilder().WithDefaultCommunicationTimeout(TimeSpan.FromSeconds(1)));
 
                 var client = new CrossPlatformSocket(AddressFamily.InterNetwork);
-                await client.ConnectAsync("localhost", testEnvironment.ServerPort, CancellationToken.None);
+                await client.ConnectAsync("127.0.0.1", testEnvironment.ServerPort, CancellationToken.None);
 
                 // Don't send anything. The server should close the connection.
                 await Task.Delay(TimeSpan.FromSeconds(3));
@@ -51,7 +51,7 @@ namespace MQTTnet.Tests.Server
                 // Send an invalid packet and ensure that the server will close the connection and stay in a waiting state
                 // forever. This is security related.
                 var client = new CrossPlatformSocket(AddressFamily.InterNetwork);
-                await client.ConnectAsync("localhost", testEnvironment.ServerPort, CancellationToken.None);
+                await client.ConnectAsync("127.0.0.1", testEnvironment.ServerPort, CancellationToken.None);
 
                 var buffer = Encoding.UTF8.GetBytes("Garbage");
                 await client.SendAsync(new ArraySegment<byte>(buffer), SocketFlags.None);

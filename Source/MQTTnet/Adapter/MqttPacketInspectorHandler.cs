@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.Diagnostics.PacketInspection;
 

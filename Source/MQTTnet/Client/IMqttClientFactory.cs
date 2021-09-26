@@ -1,5 +1,4 @@
 ﻿using MQTTnet.Adapter;
-using MQTTnet.Diagnostics;
 using MQTTnet.Diagnostics.Logger;
 using MQTTnet.LowLevelClient;
 

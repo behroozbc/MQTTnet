@@ -8,9 +8,9 @@ namespace MQTTnet.Formatter.V5
 {
     public class MqttV500PropertiesReader
     {
-        private readonly IMqttPacketBodyReader _body;
-        private readonly int _length;
-        private readonly int _targetOffset;
+        readonly IMqttPacketBodyReader _body;
+        readonly int _length;
+        readonly int _targetOffset;
 
         public MqttV500PropertiesReader(IMqttPacketBodyReader body)
         {

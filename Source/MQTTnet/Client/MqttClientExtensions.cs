@@ -1,6 +1,5 @@
 using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
-using MQTTnet.Client.ExtendedAuthenticationExchange;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Receiving;
@@ -11,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using MQTTnet.Client.ExtendedAuthentication;
 
 namespace MQTTnet.Client
 {
@@ -202,11 +202,11 @@ namespace MQTTnet.Client
             return client.ConnectAsync(options, CancellationToken.None);
         }
 
-        public static Task SendExtendedAuthenticationExchangeDataAsync(this IMqttClient client, MqttExtendedAuthenticationExchangeData data)
+        public static Task SendExtendedAuthenticationExchangeDataAsync(this IMqttClient client, MqttReAuthenticationParameters data)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            return client.SendExtendedAuthenticationExchangeDataAsync(data, CancellationToken.None);
+            return client.ReAuthenticate(data, CancellationToken.None);
         }
 
         public static Task<MqttClientSubscribeResult> SubscribeAsync(this IMqttClient client, MqttClientSubscribeOptions options)

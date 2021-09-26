@@ -6,7 +6,7 @@ namespace MQTTnet.Client.Unsubscribing
 {
     public class MqttClientUnsubscribeOptionsBuilder
     {
-        private readonly MqttClientUnsubscribeOptions _unsubscribeOptions = new MqttClientUnsubscribeOptions();
+        readonly MqttClientUnsubscribeOptions _unsubscribeOptions = new MqttClientUnsubscribeOptions();
 
         /// <summary>
         /// Adds the user property to the unsubscribe options.

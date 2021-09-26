@@ -1,10 +1,10 @@
-﻿using MQTTnet.Client.ExtendedAuthenticationExchange;
-using MQTTnet.Formatter;
+﻿using MQTTnet.Formatter;
 using MQTTnet.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MQTTnet.Client.ExtendedAuthentication;
 using MQTTnet.Diagnostics.PacketInspection;
 
 namespace MQTTnet.Client.Options
@@ -70,7 +70,7 @@ namespace MQTTnet.Client.Options
             return this;
         }
 
-        public MqttClientOptionsBuilder WithAuthentication(string method, byte[] data)
+        public MqttClientOptionsBuilder WithAuthentication(string method, byte[] data = null)
         {
             _options.AuthenticationMethod = method;
             _options.AuthenticationData = data;
@@ -173,9 +173,9 @@ namespace MQTTnet.Client.Options
             return this;
         }
 
-        public MqttClientOptionsBuilder WithExtendedAuthenticationExchangeHandler(IMqttExtendedAuthenticationExchangeHandler handler)
+        public MqttClientOptionsBuilder WithExtendedAuthenticationHandler(IMqttExtendedAuthenticationHandler handler)
         {
-            _options.ExtendedAuthenticationExchangeHandler = handler;
+            _options.ExtendedAuthenticationHandler = handler;
             return this;
         }
 

@@ -1,6 +1,7 @@
 using MQTTnet.Packets;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MQTTnet.PacketDispatcher
 {
@@ -8,6 +9,8 @@ namespace MQTTnet.PacketDispatcher
     {
         readonly List<IMqttPacketAwaitable> _awaitables = new List<IMqttPacketAwaitable>();
 
+        public Func<MqttAuthPacket, Task> AuthPacketHandler;
+        
         public void FailAll(Exception exception)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
@@ -39,6 +42,15 @@ namespace MQTTnet.PacketDispatcher
         public bool TryDispatch(MqttBasePacket packet)
         {
             if (packet == null) throw new ArgumentNullException(nameof(packet));
+
+            if (packet is MqttAuthPacket authPacket)
+            {
+                if (AuthPacketHandler != null)
+                {
+                    AuthPacketHandler.Invoke(authPacket);
+                    return true;
+                }
+            }
             
             ushort identifier = 0;
             if (packet is IMqttPacketWithIdentifier packetWithIdentifier)

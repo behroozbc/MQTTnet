@@ -33,6 +33,7 @@ namespace MQTTnet.Server
                     return _certificateProvider;
                 }
 
+#pragma warning disable 618
                 if (Certificate == null)
                 {
                     return null;
@@ -42,6 +43,7 @@ namespace MQTTnet.Server
                 {
                     Password = CertificateCredentials?.Password
                 };
+#pragma warning restore 618
             }
 
             set => _certificateProvider = value;

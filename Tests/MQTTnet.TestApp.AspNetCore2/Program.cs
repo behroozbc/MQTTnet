@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using MQTTnet.AspNetCore;
 using System.Threading.Tasks;
 using MQTTnet.AspNetCore.Extensions;
 
@@ -13,7 +12,7 @@ namespace MQTTnet.TestApp.AspNetCore2
             return BuildWebHost(args).RunAsync();
         }
 
-        private static IWebHost BuildWebHost(string[] args) =>
+        static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(o =>
                 {
